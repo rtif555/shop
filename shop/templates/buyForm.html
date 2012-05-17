@@ -1,0 +1,21 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<form name="{{ nameform }}" method="Post" action="buy/">{% csrf_token %}
+<input type="hidden" name="Orders" value="{{ Orders }}">
+    <table>     
+       <tr>
+	      <td>{{ pieceoffurniture.image }}</td>
+		  <td>{{ pieceoffurniture.model }}</td>
+		  <td>{{ pieceoffurniture.color }}</td>
+		  <td>{{ pieceoffurniture.price }}</td>
+		  <td>{{ pieceoffurniture.manufacturer }}</td>   
+       </tr>
+	   <tr>
+	      <td><a href="/find/{{ Orders }}"}>Назад</a></td>
+		  <td><input type="submit" value="Купить" name ="Action"}}></td>
+	   </tr>
+     
+    </table>
+</form>
+{% endblock %}

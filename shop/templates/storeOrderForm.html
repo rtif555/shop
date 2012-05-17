@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<form name="{{ nameform }}" method="Post" action="give/">{% csrf_token %}
+<input type="hidden" name="Orders" value="{{ Orders }}">
+    <table>
+       {% for pieceoffurniture in pieceoffurnitures %}	
+       <tr>
+	      <td>{{ pieceoffurniture.image }}</td>
+		  <td>{{ pieceoffurniture.model }}</td>
+		  <td>{{ pieceoffurniture.color }}</td>
+		  <td>{{ pieceoffurniture.manufacturer }}</td>   
+       </tr>
+	   {% endfor %}
+	   <tr>
+	      <td><a href="/storekeeper"}>Назад</a></td>
+		  <td><input type="submit" value="Товар выдан" name ="Action"}}></td>
+	   </tr>
+     
+    </table>
+</form>
+{% endblock %}

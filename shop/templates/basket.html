@@ -1,0 +1,33 @@
+﻿{% extends "base.html" %}
+{% block title %}Корзина{% endblock %}
+{% block body %}
+<form name="{{ nameform }}" method="Post" action="all">{% csrf_token %}
+<input type="hidden" name="Orders" value="{{ Orders }}">
+    <table>     
+	 {% for pieceoffurniture in pieceoffurnitures %}
+       <tr>
+	      <td>{{ pieceoffurniture.image }}</td>
+		  <td>{{ pieceoffurniture.model }}</td>
+		  <td>{{ pieceoffurniture.color }}</td>
+		  <td>{{ pieceoffurniture.price }}</td>
+		  <td>{{ pieceoffurniture.manufacturer }}</td> 
+          <td><a href="/cancel/buy/{{ pieceoffurniture.id }}/{{ Orders }}">Удалить</a></td>		  
+       </tr>
+	  {% endfor %}
+	   <tr>
+	      <td>&nbsp </td>
+	   </tr>
+	   <tr>
+	      <td>Стоимость заказа</td>
+		  <td>{{ price__sum }}</td>
+	   </tr>
+	 
+	   <tr>
+	      <td><a href="/cancel/orders/{{ Orders }}">Очистить</a></td> 
+		  <td><input type="submit" value="Покупка" name ="Action"}}></td>
+		  <td><a href="/find/{{ Orders }}"}>Назад</a></td>
+	   </tr>
+     
+    </table>
+</form>
+{% endblock %}

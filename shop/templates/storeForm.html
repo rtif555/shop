@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<form name="{{ nameform }}" method="Post" action="get">{% csrf_token %}
+    <table>
+      {% for order in orders %}
+        <tr>
+		    <td>{{ order.id}}</td>
+			<td>{{ order.date_orders }}</td>
+			<td><a href="/storekeeper/order/{{ order.id}}/"}>Просмотр</a></td>
+	    </tr>
+     {% endfor %}	    
+    </table>
+	    <h1> Принятие товара</h1>
+		<table>
+	       <tr><td><input type="submit" value="Стулья" name ="Act"}}></td>
+	       <td><input type="submit" value="Кресла" name ="Act"}}></td></tr>
+	       <tr><td><input type="submit" value="Шкафы" name ="Act"}}></td>
+	       <td><input type="submit" value="Полки" name ="Act"}}></td></tr>
+	   </table>
+</form>
+{% endblock %}

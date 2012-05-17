@@ -1,0 +1,29 @@
+﻿{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<form name="{{ nameform }}" method="Post" action="">{% csrf_token %}
+    <table>
+     {{ form }}
+      <tr>
+	     <td><input type="submit" value="Search"></td>
+		 {% if Basket %}
+             <td><a href="/basket{{ Orders }}"}>Корзина</a></td>
+         {% endif %}
+	  </tr>	  
+    </table>
+</form>
+<form name="buy" method="Post" action="">{% csrf_token %}
+     <table>
+	 <input type="hidden" name="Orders" value="{{ Orders }}">
+     {% for pieceoffurniture in pieceoffurnitures %}
+        <tr>
+		    <td>{{ pieceoffurniture.type }}</td>
+			<td>{{ pieceoffurniture.model }}</td>
+			<td>{{ pieceoffurniture.color }}</td>
+			<td>{{ pieceoffurniture.price }}</td>
+			<td><a href="/furniture/{{ pieceoffurniture.id }}/{{ Orders }}"}>Просмотр</a></td>
+	    </tr>
+     {% endfor %}
+    </table>
+</form>
+{% endblock %}

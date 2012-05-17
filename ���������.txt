@@ -1,0 +1,3 @@
+C:\Python25\Lib\site-packages\django\db\models\fields\__init.py__
+изменен класс DecimalField
+добавлено работа со сдловарем
