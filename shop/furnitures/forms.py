@@ -52,15 +52,60 @@ class ShelfFind(PieceOfFurniture):
 class ArmchairFormAdd(ModelForm):
     class Meta:
         model = Armchair
+        exclude = ('statys',)
+	
+    def as_tale(self):
+        "Returns this form rendered as HTML <t>s -- excluding the <table></table>."
+        return self._html_output(
+            normal_row = u'<tr><th>%(label)s</th><td>%(field)s%(help_text)s</td></tr>',
+            error_row = u'<tr><td colspan="2">%s</td></tr>',
+            row_ender = u'</td></tr>',
+            help_text_html = u'<br /><span class="helptext">%s</span>',
+            errors_on_separate_row = False)
 
 class ChairFormAdd(ModelForm):
     class Meta:
         model = Chair
+        exclude = ('statys',)
+		
+    def as_tale(self):
+        "Returns this form rendered as HTML <t>s -- excluding the <table></table>."
+        return self._html_output(
+            normal_row = u'<tr><th>%(label)s</th><td>%(field)s%(help_text)s</td></tr>',
+            error_row = u'<tr><td colspan="2">%s</td></tr>',
+            row_ender = u'</td></tr>',
+            help_text_html = u'<br /><span class="helptext">%s</span>',
+            errors_on_separate_row = False)
 
 class CupboardFormAdd(ModelForm):
     class Meta:
         model = Cupboard
+        exclude = ('statys',)
+    
+    def as_tale(self):
+        "Returns this form rendered as HTML <t>s -- excluding the <table></table>."
+        return self._html_output(
+            normal_row = u'<tr><th>%(label)s</th><td>%(field)s%(help_text)s</td></tr>',
+            error_row = u'<tr><td colspan="2">%s</td></tr>',
+            row_ender = u'</td></tr>',
+            help_text_html = u'<br /><span class="helptext">%s</span>',
+            errors_on_separate_row = False)
 		
 class ShelfFormAdd(ModelForm):
     class Meta:
         model = Shelf
+        exclude = ('statys',)
+
+    def as_tale(self):
+        "Returns this form rendered as HTML <t>s -- excluding the <table></table>."
+        return self._html_output(
+            normal_row = u'<tr><th>%(label)s</th><td>%(field)s%(help_text)s</td></tr>',
+            error_row = u'<tr><td colspan="2">%s</td></tr>',
+            row_ender = u'</td></tr>',
+            help_text_html = u'<br /><span class="helptext">%s</span>',
+            errors_on_separate_row = False)
+			
+class ProduserFormAdd(ModelForm):
+    class Meta:
+        model = Producer
+    

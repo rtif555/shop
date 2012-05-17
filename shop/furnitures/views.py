@@ -4,11 +4,13 @@ import datetime
 from django.core.context_processors import csrf
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import *
 from django.template import RequestContext
 from django.db.models import Sum
 
 from shop.furnitures.forms import *
+
+completedform=''
 
 def find(request,orders=""):
     ord=orders #пришеший номер заказа
@@ -157,21 +159,56 @@ def storeordergive(request,order):
     Order.objects.filter(id=ord).update(issuance=True)
     return HttpResponseRedirect("/storekeeper/")
 
+def choseForm(type,param=None):    
+    if type!='':
+        if type==u"Шкафы":        
+            form=CupboardFormAdd(param)
+        elif type==u"Кресла":
+            form=ArmchairFormAdd(param)
+        elif type==u"Стулья":
+            form=ChairFormAdd(param)
+        elif type==u"Полки":
+            form=ShelfFormAdd(param)
+    return form
+
 def storeget(request):
-    type=request.POST['Act']
-    print(type)
+    type=request.POST['Act']    
     if type=='':
-        return HttpResponseRedirect("/storekeeper/")
-    form=ArmchairFormAdd()
-    if type==u"Шкафы":        
-        form=CupboardFormAdd()
-    elif type==u"Кресла":
-        form=ArmchairFormAdd()
-    elif type==u"Стулья":
-        form=ChairFormAdd()
-    elif type==u"Полки":
-        form=ShelfFormAdd()
+        return HttpResponseRedirect("/storekeeper/")    
+    form=ArmchairFormAdd()    
+    form=choseForm(type)
+    form=form.as_table
+    global completedform    
+    if completedform!='':
+       if 'Action'in request.POST and request.POST['Action']==u'Добавить':
+          form=ProduserFormAdd(request.POST)    
+          instances=form.save()
+       form=completedform
+       form=form.as_tale
+       completedform=''
     return render_to_response('storeAddForm.html', {'title':'прием',
-                              'nameform':'gуе', 'form':form.as_table,
+                              'nameform':'gуе', 'form':form,
 							  'Type':type},
                                context_instance=RequestContext(request))
+
+
+def storeadd(request):
+    act=request.POST['Action']
+    type=request.POST['Type']    
+    global completedform
+    completedform=choseForm(type,request.POST)    
+    if act=='':
+        return HttpResponseRedirect("/storekeeper/")
+    if act==u'Добавить товар':
+       form=choseForm(type,request.POST)       
+       instances=form.save()       
+       return HttpResponseRedirect("/storekeeper/")	   
+    if act==u'Добавить производителя':        
+        form=ProduserFormAdd()
+        return render_to_response('storeAddProdForm.html', {'title':'Добавление производителя',
+                              'nameform':'gуеs', 'form':form.as_table,
+							  'Type':type},
+                               context_instance=RequestContext(request))
+    if act==u'Назад':
+        
+        return storeget(request)					   

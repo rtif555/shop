@@ -5,7 +5,20 @@
     <input type="hidden" name="Type" value="{{ Type }}">
 	<table>
       {{ form }}
-        
+        <tr>
+		    <td>
+			    &nbsp 
+			</td>
+		</tr>
+		<tr>
+		    <td><a href="/storekeeper/"}>Назад</a></td>
+			<td>
+			    <input type="submit" value="Добавить производителя" name ="Action">				
+			</td>
+			<td>
+			    <input type="submit" value="Добавить товар" name ="Action">				
+			</td>
+		</tr>
 	</table>
 </form>
 {% endblock %}
